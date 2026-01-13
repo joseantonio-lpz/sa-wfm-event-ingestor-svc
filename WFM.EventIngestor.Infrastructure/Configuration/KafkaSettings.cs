@@ -9,9 +9,7 @@ namespace WFM.EventIngestor.Infrastructure.Configuration
 
     public class KafkaTopics
     {
-        public string SocialContent { get; set; } = default!;
-        public string SinergiaFlow { get; set; } = default!;
-        public string AdsaStore { get; set; } = default!;
-        public string ExceptionFirma { get; set; } = default!;
+        public string TaskRejected { get; set; } = default!;
+        public string EntityCreated { get; set; } = default!;
     }
 }

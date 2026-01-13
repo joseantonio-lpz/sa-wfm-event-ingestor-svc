@@ -16,11 +16,11 @@ EXPOSE 8080
 ENTRYPOINT ["dotnet", "WFM.EventIngestor.API.dll"]
 
 # 1. Crea un volumen nombrado
-# docker build -t wfm-producer .
+# docker build -t wfm-event-Ingestor .
 
 # 2. Crea un volumen nombrado (solo necesitas hacerlo una vez)
 # docker volume create dataprotection-keys
 
 # 3. Inicia tu contenedor usando el volumen
 # Asegúrate de mapear al puerto 8080 del contenedor (ver siguiente sección)
-# docker run -d -p 5000:8080 -v dataprotection-keys:/root/.aspnet/DataProtection-Keys --name wfm-producer-app wfm-producer
+# docker run -d -p 5001:8080 -v dataprotection-keys:/root/.aspnet/DataProtection-Keys --name wfm-event-Ingestor-app wfm-event-Ingestor

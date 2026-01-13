@@ -9,6 +9,7 @@ using WFM.EventIngestor.Infrastructure.Configuration;
 namespace WFM.EventIngestor.API.Controllers
 {
     [Route("api/[controller]")]
+    //[Authorize(AuthenticationSchemes = "BasicAuthentication")]
     public class MessagesController : BaseController
     {
         private readonly IKafkaProducerService _producer;
@@ -17,45 +18,23 @@ namespace WFM.EventIngestor.API.Controllers
             _producer = producer;
         }
 
-        [HttpPost("social-content")]
-        public async Task<IActionResult> SendSocialContent(
-            [FromBody] SocialContentMessage message,
+        [HttpPost("entity-created")]
+        public async Task<IActionResult> SendEntityCreated(
+            [FromBody] EntityCreatedMessage message,
             [FromServices] IOptions<KafkaSettings> kafkaSettings)
         {
-            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.SocialContent, message);
+            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.EntityCreated, message);
             return resp.IsSuccess
                 ? OkResp(new { message = resp.Data })
                 : BadReq(resp.Message);
         }
 
-        [HttpPost("sinergia-flow")]
-        public async Task<IActionResult> SendSinergiaFlow(
-            [FromBody] SinergiaFlowMessage message,
+        [HttpPost("task-rejected")]
+        public async Task<IActionResult> SendTaskRejected(
+            [FromBody] TaskRejectedMessage message,
             [FromServices] IOptions<KafkaSettings> kafkaSettings)
         {
-            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.SinergiaFlow, message);
-            return resp.IsSuccess
-                ? OkResp(new { message = resp.Data })
-                : BadReq(resp.Message);
-        }
-
-        [HttpPost("adsa-store")]
-        public async Task<IActionResult> SendAdsaStore(
-            [FromBody] AdsaStoreMessage message,
-            [FromServices] IOptions<KafkaSettings> kafkaSettings)
-        {
-            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.AdsaStore, message);
-            return resp.IsSuccess
-                ? OkResp(new { message = resp.Data })
-                : BadReq(resp.Message);
-        } 
-        
-        [HttpPost("exception-firma")]
-        public async Task<IActionResult> SendExceptionFirma(
-            [FromBody] ExceptionFirmaMessage message,
-            [FromServices] IOptions<KafkaSettings> kafkaSettings)
-        {
-            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.ExceptionFirma, message);
+            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.TaskRejected, message);
             return resp.IsSuccess
                 ? OkResp(new { message = resp.Data })
                 : BadReq(resp.Message);
