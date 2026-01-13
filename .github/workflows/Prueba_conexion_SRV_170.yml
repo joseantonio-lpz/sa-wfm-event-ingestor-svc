@@ -1,0 +1,36 @@
+name: Prueba de conexion al servidor 170 
+on:
+  #### push: cambio de automatico a manual
+  workflow_dispatch:
+    branches:
+      - main # O la rama que desees
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Copiar código
+        uses: actions/checkout@v3
+
+      - name: Añadir clave SSH al agente
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{secrets.SSH_PRIVATE_KEY_170}} # Usa el nombre del secreto que creaste
+
+      - name: Conectar y ejecutar comandos en el servidor
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST_170}} # Tu nombre de host
+          username: ${{secrets.SSH_USERNAME_170}} # Tu nombre de usuario
+          key: ${{secrets.SSH_PRIVATE_KEY_170}} # Clave privada
+          script: |
+            cd /home/GIT     # Navega al directorio de tu aplicación
+            ls -lrt
+            echo "Hola  ...     prueba "
+            # Puedes agregar aquí otros comandos, como npm install, composer install, etc.
+              docker ps -a
+              sleep 20
+              docker images
+              sleep 20
+              echo "Fin del workflow"
