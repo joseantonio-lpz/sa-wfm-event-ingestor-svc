@@ -1,0 +1,6 @@
+@WFM.EventIngestor.API_HostAddress = http://localhost:5100
+
+GET {{WFM.EventIngestor.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
