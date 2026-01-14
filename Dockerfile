@@ -23,4 +23,4 @@ ENTRYPOINT ["dotnet", "WFM.EventIngestor.API.dll"]
 
 # 3. Inicia tu contenedor usando el volumen
 # Asegúrate de mapear al puerto 8080 del contenedor (ver siguiente sección)
-# docker run -d -p 5001:8080 -v dataprotection-keys:/root/.aspnet/DataProtection-Keys --name wfm-event-ingestor-app wfm-event-ingestor
+# docker run -d -p 5002:8080 -v dataprotection-keys:/root/.aspnet/DataProtection-Keys --name wfm-event-ingestor-app wfm-event-ingestor
