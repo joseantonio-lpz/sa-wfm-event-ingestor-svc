@@ -39,5 +39,16 @@ namespace WFM.EventIngestor.API.Controllers
                 ? OkResp(new { message = resp.Data })
                 : BadReq(resp.Message);
         }
+
+        [HttpPost("form-submit")]
+        public async Task<IActionResult> SendFormSubmit(
+          [FromBody] FormSubmitMessage message,
+          [FromServices] IOptions<KafkaSettings> kafkaSettings)
+        {
+            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.FormSubmit, message);
+            return resp.IsSuccess
+                ? OkResp(new { message = resp.Data })
+                : BadReq(resp.Message);
+        }
     }
 }

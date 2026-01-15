@@ -11,5 +11,6 @@ namespace WFM.EventIngestor.Infrastructure.Configuration
     {
         public string TaskRejected { get; set; } = default!;
         public string EntityCreated { get; set; } = default!;
+        public string FormSubmit { get; set; } = default!;
     }
 }
