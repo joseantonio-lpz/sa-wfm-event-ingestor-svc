@@ -50,5 +50,38 @@ namespace WFM.EventIngestor.API.Controllers
                 ? OkResp(new { message = resp.Data })
                 : BadReq(resp.Message);
         }
+
+        [HttpPost("task-started")]
+        public async Task<IActionResult> SendTaskStarted(
+         [FromBody] TaskStartedMessage message,
+         [FromServices] IOptions<KafkaSettings> kafkaSettings)
+        {
+            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.TaskStarted, message);
+            return resp.IsSuccess
+                ? OkResp(new { message = resp.Data })
+                : BadReq(resp.Message);
+        }
+
+        [HttpPost("task-completed")]
+        public async Task<IActionResult> SendTaskCompleted(
+        [FromBody] TaskCompletedMessage message,
+        [FromServices] IOptions<KafkaSettings> kafkaSettings)
+        {
+            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.TaskCompleted, message);
+            return resp.IsSuccess
+                ? OkResp(new { message = resp.Data })
+                : BadReq(resp.Message);
+        }
+
+        [HttpPost("task-assigned")]
+        public async Task<IActionResult> SendTaskAssigned(
+        [FromBody] TaskAssignedMessage message,
+        [FromServices] IOptions<KafkaSettings> kafkaSettings)
+        {
+            var resp = await _producer.SendMessageAsync(kafkaSettings.Value.Topics.TaskAssigned, message);
+            return resp.IsSuccess
+                ? OkResp(new { message = resp.Data })
+                : BadReq(resp.Message);
+        }
     }
 }
