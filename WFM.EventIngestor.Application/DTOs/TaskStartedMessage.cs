@@ -24,6 +24,9 @@ namespace WFM.EventIngestor.Application.DTOs
         [Required(ErrorMessage = "El campo 'flow_code' es obligatorio.")]
         public string FlowCode { get; set; } = default!;
 
+        [Required(ErrorMessage = "El campo 'flow_instance_id' es obligatorio.")]
+        public string FlowInstanceId { get; set; } = default!;
+
         [Required(ErrorMessage = "El campo 'date' es obligatorio.")]
         public string Date { get; set; } = default!;
 
